@@ -1,301 +1,207 @@
 {
-  "system_name": "Leasing Lead Scoring Engine",
-  "version": "1.0",
-  "goal": "Ocena jakości leadu na podstawie wiadomości klienta w celu priorytetyzacji kontaktu handlowego i dopasowania stylu odpowiedzi.",
-  "industry": "leasing",
-  "language": "pl",
-  "score_range": {
-    "min": 0,
-    "max": 100
-  },
-  "score_bands": [
-    {
-      "label": "Cold",
+  "lead_scoring": {
+    "version": "1.0",
+    "industry": "leasing",
+    "language": "pl",
+    "score_range": {
       "min": 0,
-      "max": 24,
-      "priority": "low",
-      "recommended_action": "krótka odpowiedź informacyjna, bez presji sprzedażowej, próba doprecyzowania potrzeb"
+      "max": 100
     },
-    {
-      "label": "Warm",
-      "min": 25,
-      "max": 49,
-      "priority": "medium",
-      "recommended_action": "zadać 2-4 pytania kwalifikujące i zebrać podstawowe dane"
-    },
-    {
-      "label": "Hot",
-      "min": 50,
-      "max": 74,
-      "priority": "high",
-      "recommended_action": "szybka odpowiedź, przejście do konkretów oferty i zebranie danych do kalkulacji"
-    },
-    {
-      "label": "Priority",
-      "min": 75,
-      "max": 100,
-      "priority": "urgent",
-      "recommended_action": "natychmiastowy follow-up, propozycja telefonu lub przygotowania oferty tego samego dnia"
-    }
-  ],
-  "dimensions": [
-    {
-      "name": "intent",
-      "max_points": 35,
-      "description": "Siła zamiaru zakupu lub wejścia w leasing"
-    },
-    {
-      "name": "financial_fit",
-      "max_points": 25,
-      "description": "Czy lead brzmi realistycznie finansowo i biznesowo"
-    },
-    {
-      "name": "timing",
-      "max_points": 20,
-      "description": "Jak szybko klient chce działać"
-    },
-    {
-      "name": "completeness",
-      "max_points": 10,
-      "description": "Ile kluczowych danych klient podał od razu"
-    },
-    {
-      "name": "conversation_quality",
-      "max_points": 10,
-      "description": "Czy wiadomość jest konkretna, spójna i użyteczna"
-    }
-  ],
-  "positive_signals": {
-    "strong": [
+    "score_bands": [
       {
-        "pattern": "chcę leasing",
-        "points": 18,
-        "dimension": "intent"
+        "label": "Cold",
+        "min": 0,
+        "max": 24,
+        "priority": "low",
+        "recommended_action": "krótka odpowiedź informacyjna, bez presji sprzedażowej, próba doprecyzowania potrzeb"
       },
       {
-        "pattern": "poproszę ofertę",
-        "points": 18,
-        "dimension": "intent"
+        "label": "Warm",
+        "min": 25,
+        "max": 49,
+        "priority": "medium",
+        "recommended_action": "zadać 1-2 pytania kwalifikujące i zebrać podstawowe dane"
       },
       {
-        "pattern": "jaka rata",
-        "points": 14,
-        "dimension": "intent"
+        "label": "Hot",
+        "min": 50,
+        "max": 74,
+        "priority": "high",
+        "recommended_action": "szybka odpowiedź, przejście do konkretów oferty i zebranie danych do kalkulacji"
       },
       {
-        "pattern": "mam wybrane auto",
-        "points": 15,
-        "dimension": "intent"
-      },
-      {
-        "pattern": "na firmę",
-        "points": 10,
-        "dimension": "financial_fit"
-      },
-      {
-        "pattern": "prowadzę działalność",
-        "points": 12,
-        "dimension": "financial_fit"
-      },
-      {
-        "pattern": "spółka",
-        "points": 12,
-        "dimension": "financial_fit"
-      },
-      {
-        "pattern": "wkład własny",
-        "points": 8,
-        "dimension": "completeness"
-      },
-      {
-        "pattern": "48 miesięcy",
-        "points": 7,
-        "dimension": "completeness"
-      },
-      {
-        "pattern": "budżet",
-        "points": 7,
-        "dimension": "completeness"
-      },
-      {
-        "pattern": "mogę działać w tym tygodniu",
-        "points": 16,
-        "dimension": "timing"
-      },
-      {
-        "pattern": "proszę o kontakt",
-        "points": 14,
-        "dimension": "timing"
-      },
-      {
-        "pattern": "wyślij warunki",
-        "points": 12,
-        "dimension": "intent"
+        "label": "Priority",
+        "min": 75,
+        "max": 100,
+        "priority": "urgent",
+        "recommended_action": "natychmiastowy follow-up, propozycja telefonu lub przygotowania oferty tego samego dnia"
       }
     ],
-    "medium": [
+    "dimensions": {
+      "intent": {
+        "max_points": 35
+      },
+      "financial_fit": {
+        "max_points": 25
+      },
+      "timing": {
+        "max_points": 20
+      },
+      "completeness": {
+        "max_points": 10
+      },
+      "conversation_quality": {
+        "max_points": 10
+      }
+    },
+    "patterns": {
+      "vehicle_brands": [
+        { "pattern": "mercedes", "points": 4, "dimension": "completeness" },
+        { "pattern": "bmw", "points": 4, "dimension": "completeness" },
+        { "pattern": "audi", "points": 4, "dimension": "completeness" },
+        { "pattern": "volkswagen|vw", "points": 3, "dimension": "completeness" },
+        { "pattern": "toyota", "points": 3, "dimension": "completeness" },
+        { "pattern": "skoda", "points": 3, "dimension": "completeness" },
+        { "pattern": "kia", "points": 3, "dimension": "completeness" },
+        { "pattern": "hyundai", "points": 3, "dimension": "completeness" },
+        { "pattern": "lexus", "points": 4, "dimension": "completeness" },
+        { "pattern": "porsche", "points": 5, "dimension": "financial_fit" },
+        { "pattern": "tesla", "points": 4, "dimension": "financial_fit" },
+        { "pattern": "ford", "points": 3, "dimension": "completeness" },
+        { "pattern": "opel", "points": 2, "dimension": "completeness" },
+        { "pattern": "renault", "points": 2, "dimension": "completeness" },
+        { "pattern": "peugeot", "points": 2, "dimension": "completeness" }
+      ],
+      "vehicle_models": [
+        { "pattern": "cla|cls|glc|gle|c180|c200|c300|e200|e220|sprinter", "points": 4, "dimension": "completeness" },
+        { "pattern": "seria 3|seria 5|x3|x5|320d|330i|520d", "points": 4, "dimension": "completeness" },
+        { "pattern": "a4|a6|q3|q5|q7", "points": 4, "dimension": "completeness" },
+        { "pattern": "octavia|superb|kodiaq", "points": 3, "dimension": "completeness" },
+        { "pattern": "corolla|camry|rav4|yaris", "points": 3, "dimension": "completeness" },
+        { "pattern": "model 3|model y", "points": 4, "dimension": "financial_fit" }
+      ],
+      "customer_type_patterns": [
+        { "pattern": "osoba fizyczna", "points": 6, "dimension": "financial_fit" },
+        { "pattern": "osoba prywatna", "points": 6, "dimension": "financial_fit" },
+        { "pattern": "na firmę", "points": 10, "dimension": "financial_fit" },
+        { "pattern": "jednoosobowa działalność|jdg", "points": 12, "dimension": "financial_fit" },
+        { "pattern": "spółka", "points": 12, "dimension": "financial_fit" },
+        { "pattern": "spółka z o\\.o\\.", "points": 12, "dimension": "financial_fit" },
+        { "pattern": "działalność gospodarcza", "points": 12, "dimension": "financial_fit" },
+        { "pattern": "freelancer|samozatrudniony", "points": 8, "dimension": "financial_fit" },
+        { "pattern": "vatowiec|płatnik vat", "points": 8, "dimension": "financial_fit" }
+      ],
+      "financial_patterns": [
+        { "pattern": "budżet", "points": 5, "dimension": "completeness" },
+        { "pattern": "rata", "points": 7, "dimension": "intent" },
+        { "pattern": "wkład własny", "points": 8, "dimension": "completeness" },
+        { "pattern": "opłata wstępna", "points": 8, "dimension": "completeness" },
+        { "pattern": "odstępne", "points": 5, "dimension": "completeness" },
+        { "pattern": "netto", "points": 5, "dimension": "financial_fit" },
+        { "pattern": "brutto", "points": 4, "dimension": "financial_fit" },
+        { "pattern": "\\b[1-9][0-9]{2,6}\\s?(zł|zl|pln)\\b", "points": 8, "dimension": "completeness" },
+        { "pattern": "\\b[1-9][0-9]{1,3}\\s?(tys|tyś|tysięcy)\\b", "points": 8, "dimension": "financial_fit" },
+        { "pattern": "\\b[1-9][0-9]?%\\b", "points": 6, "dimension": "completeness" }
+      ],
+      "term_patterns": [
+        { "pattern": "12 miesięcy|12 mies|na 12", "points": 5, "dimension": "completeness" },
+        { "pattern": "24 miesiące|24 mies|na 24", "points": 6, "dimension": "completeness" },
+        { "pattern": "36 miesięcy|36 mies|na 36", "points": 7, "dimension": "completeness" },
+        { "pattern": "48 miesięcy|48 mies|na 48", "points": 8, "dimension": "completeness" },
+        { "pattern": "60 miesięcy|60 mies|na 60", "points": 8, "dimension": "completeness" },
+        { "pattern": "72 miesiące|72 mies|na 72", "points": 7, "dimension": "completeness" },
+        { "pattern": "okres leasingu", "points": 5, "dimension": "intent" }
+      ],
+      "popular_customer_phrases": [
+        { "pattern": "poproszę ofertę", "points": 18, "dimension": "intent" },
+        { "pattern": "proszę o ofertę", "points": 18, "dimension": "intent" },
+        { "pattern": "proszę o więcej informacji", "points": 6, "dimension": "conversation_quality" },
+        { "pattern": "więcej info", "points": 5, "dimension": "conversation_quality" },
+        { "pattern": "jaka rata", "points": 14, "dimension": "intent" },
+        { "pattern": "ile wyniesie rata", "points": 14, "dimension": "intent" },
+        { "pattern": "czy to aktualne", "points": 3, "dimension": "conversation_quality" },
+        { "pattern": "aktualne\\??", "points": 2, "dimension": "conversation_quality" },
+        { "pattern": "jest dostępne", "points": 3, "dimension": "conversation_quality" },
+        { "pattern": "czy dostępne", "points": 3, "dimension": "conversation_quality" },
+        { "pattern": "jakie warunki", "points": 10, "dimension": "intent" },
+        { "pattern": "jakie dokumenty", "points": 8, "dimension": "intent" },
+        { "pattern": "jak szybko decyzja", "points": 10, "dimension": "timing" },
+        { "pattern": "czy można dziś|czy można jeszcze dziś", "points": 12, "dimension": "timing" },
+        { "pattern": "proszę o kontakt", "points": 14, "dimension": "timing" },
+        { "pattern": "proszę zadzwonić", "points": 16, "dimension": "timing" },
+        { "pattern": "podam numer", "points": 12, "dimension": "timing" },
+        { "pattern": "mam wybrane auto", "points": 15, "dimension": "intent" },
+        { "pattern": "interesuje mnie leasing", "points": 10, "dimension": "intent" },
+        { "pattern": "chcę wziąć leasing", "points": 18, "dimension": "intent" },
+        { "pattern": "chcę sfinansować", "points": 16, "dimension": "intent" },
+        { "pattern": "chciałbym leasing", "points": 14, "dimension": "intent" },
+        { "pattern": "potrzebuję auta na firmę", "points": 16, "dimension": "intent" }
+      ],
+      "cession_patterns": [
+        { "pattern": "cesja", "points": 12, "dimension": "intent" },
+        { "pattern": "przejęcie leasingu", "points": 15, "dimension": "intent" },
+        { "pattern": "odstąpię leasing", "points": 8, "dimension": "intent" },
+        { "pattern": "oddam leasing", "points": 8, "dimension": "intent" },
+        { "pattern": "przejęcie cesji", "points": 15, "dimension": "intent" },
+        { "pattern": "odstępne", "points": 5, "dimension": "completeness" },
+        { "pattern": "wykup", "points": 7, "dimension": "completeness" },
+        { "pattern": "ilość rat", "points": 6, "dimension": "completeness" },
+        { "pattern": "pozostało rat", "points": 6, "dimension": "completeness" }
+      ],
+      "negative_patterns_extra": [
+        { "pattern": "na razie się rozglądam", "points": -8, "dimension": "intent" },
+        { "pattern": "na razie tylko pytam", "points": -10, "dimension": "intent" },
+        { "pattern": "może w przyszłości", "points": -10, "dimension": "timing" },
+        { "pattern": "dopiero planuję", "points": -8, "dimension": "timing" },
+        { "pattern": "jeszcze nie teraz", "points": -12, "dimension": "timing" },
+        { "pattern": "badam rynek", "points": -6, "dimension": "intent" },
+        { "pattern": "porównuję opcje", "points": -5, "dimension": "intent" },
+        { "pattern": "bez bik", "points": -12, "dimension": "financial_fit" },
+        { "pattern": "bez krd", "points": -12, "dimension": "financial_fit" },
+        { "pattern": "bez dochodu", "points": -15, "dimension": "financial_fit" },
+        { "pattern": "bez zdolności", "points": -15, "dimension": "financial_fit" },
+        { "pattern": "bez wkładu i od ręki", "points": -10, "dimension": "financial_fit" },
+        { "pattern": "bez wkładu", "points": -6, "dimension": "financial_fit" }
+      ]
+    },
+    "entities_to_extract": [
+      "przedmiot_leasingu",
+      "marka",
+      "model",
+      "wartość_przedmiotu",
+      "budżet_miesięczny",
+      "wkład_własny",
+      "okres_leasingu",
+      "forma_działalności",
+      "czas_zakupu",
+      "dane_kontaktowe"
+    ],
+    "minimum_data_for_offer_ready_lead": [
+      "przedmiot_leasingu",
+      "wartość_lub_budżet",
+      "forma_działalności",
+      "okres_leasingu_lub_rata"
+    ],
+    "human_handoff_rules": [
       {
-        "pattern": "interesuje mnie leasing",
-        "points": 10,
-        "dimension": "intent"
+        "condition": "score >= 75",
+        "action": "przekaż do handlowca natychmiast"
       },
       {
-        "pattern": "jak to wygląda",
-        "points": 6,
-        "dimension": "intent"
+        "condition": "klient prosi o telefon lub ofertę",
+        "action": "przekaż do handlowca"
       },
       {
-        "pattern": "czy dla jdg",
-        "points": 8,
-        "dimension": "financial_fit"
-      },
-      {
-        "pattern": "jakie dokumenty",
-        "points": 8,
-        "dimension": "intent"
-      },
-      {
-        "pattern": "więcej informacji",
-        "points": 5,
-        "dimension": "conversation_quality"
-      },
-      {
-        "pattern": "leasing auta",
-        "points": 8,
-        "dimension": "intent"
+        "condition": "wiadomość zawiera komplet danych do kalkulacji",
+        "action": "przekaż do handlowca"
       }
     ],
-    "weak": [
-      {
-        "pattern": "aktualne",
-        "points": 2,
-        "dimension": "conversation_quality"
-      },
-      {
-        "pattern": "pw",
-        "points": 1,
-        "dimension": "conversation_quality"
-      },
-      {
-        "pattern": "priv",
-        "points": 1,
-        "dimension": "conversation_quality"
-      },
-      {
-        "pattern": "info",
-        "points": 1,
-        "dimension": "conversation_quality"
-      },
-      {
-        "pattern": "poproszę",
-        "points": 2,
-        "dimension": "conversation_quality"
-      }
-    ]
-  },
-  "negative_signals": [
-    {
-      "pattern": "na razie tylko pytam",
-      "points": -10,
-      "dimension": "intent"
-    },
-    {
-      "pattern": "za kilka miesięcy",
-      "points": -12,
-      "dimension": "timing"
-    },
-    {
-      "pattern": "jeszcze się zastanawiam",
-      "points": -8,
-      "dimension": "intent"
-    },
-    {
-      "pattern": "porównuję opcje",
-      "points": -5,
-      "dimension": "intent"
-    },
-    {
-      "pattern": "bez bik",
-      "points": -12,
-      "dimension": "financial_fit"
-    },
-    {
-      "pattern": "bez krd",
-      "points": -12,
-      "dimension": "financial_fit"
-    },
-    {
-      "pattern": "bez dochodu",
-      "points": -15,
-      "dimension": "financial_fit"
-    },
-    {
-      "pattern": "bez wkładu i od ręki",
-      "points": -10,
-      "dimension": "financial_fit"
-    }
-  ],
-  "key_entities_to_extract": [
-    "przedmiot leasingu",
-    "marka",
-    "model",
-    "wartość przedmiotu",
-    "budżet miesięczny",
-    "wkład własny",
-    "okres leasingu",
-    "forma działalności",
-    "czas zakupu",
-    "dane kontaktowe"
-  ],
-  "minimum_data_for_offer_ready_lead": [
-    "przedmiot leasingu",
-    "wartość lub budżet",
-    "forma działalności",
-    "okres leasingu lub preferowana rata"
-  ],
-  "response_strategy_by_band": {
-    "Cold": {
-      "tone": "spokojny, pomocny, nienachalny",
-      "goal": "utrzymać rozmowę i zdobyć podstawowy kontekst",
-      "questions_limit": 2
-    },
-    "Warm": {
-      "tone": "konkretny, doradczy",
-      "goal": "kwalifikacja leadu",
-      "questions_limit": 4
-    },
-    "Hot": {
-      "tone": "pewny, sprawny, sprzedażowy ale naturalny",
-      "goal": "przejście do kalkulacji lub rozmowy telefonicznej",
-      "questions_limit": 4
-    },
-    "Priority": {
-      "tone": "bardzo konkretny, szybki, premium",
-      "goal": "domknięcie kontaktu i przekazanie do handlowca",
-      "questions_limit": 3
-    }
-  },
-  "human_handoff_rules": [
-    {
-      "condition": "score >= 75",
-      "action": "przekaż do handlowca natychmiast"
-    },
-    {
-      "condition": "klient prosi o telefon lub ofertę",
-      "action": "przekaż do handlowca"
-    },
-    {
-      "condition": "wiadomość zawiera komplet danych do kalkulacji",
-      "action": "przekaż do handlowca"
-    }
-  ],
-  "output_format": {
-    "fields": [
+    "output_fields": [
       "lead_score",
       "lead_label",
       "priority",
       "recommended_action",
-      "intent_summary",
+      "signals_found",
       "missing_data",
       "next_best_message"
     ]
