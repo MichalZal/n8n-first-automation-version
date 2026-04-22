@@ -1,0 +1,303 @@
+{
+  "system_name": "Leasing Lead Scoring Engine",
+  "version": "1.0",
+  "goal": "Ocena jakości leadu na podstawie wiadomości klienta w celu priorytetyzacji kontaktu handlowego i dopasowania stylu odpowiedzi.",
+  "industry": "leasing",
+  "language": "pl",
+  "score_range": {
+    "min": 0,
+    "max": 100
+  },
+  "score_bands": [
+    {
+      "label": "Cold",
+      "min": 0,
+      "max": 24,
+      "priority": "low",
+      "recommended_action": "krótka odpowiedź informacyjna, bez presji sprzedażowej, próba doprecyzowania potrzeb"
+    },
+    {
+      "label": "Warm",
+      "min": 25,
+      "max": 49,
+      "priority": "medium",
+      "recommended_action": "zadać 2-4 pytania kwalifikujące i zebrać podstawowe dane"
+    },
+    {
+      "label": "Hot",
+      "min": 50,
+      "max": 74,
+      "priority": "high",
+      "recommended_action": "szybka odpowiedź, przejście do konkretów oferty i zebranie danych do kalkulacji"
+    },
+    {
+      "label": "Priority",
+      "min": 75,
+      "max": 100,
+      "priority": "urgent",
+      "recommended_action": "natychmiastowy follow-up, propozycja telefonu lub przygotowania oferty tego samego dnia"
+    }
+  ],
+  "dimensions": [
+    {
+      "name": "intent",
+      "max_points": 35,
+      "description": "Siła zamiaru zakupu lub wejścia w leasing"
+    },
+    {
+      "name": "financial_fit",
+      "max_points": 25,
+      "description": "Czy lead brzmi realistycznie finansowo i biznesowo"
+    },
+    {
+      "name": "timing",
+      "max_points": 20,
+      "description": "Jak szybko klient chce działać"
+    },
+    {
+      "name": "completeness",
+      "max_points": 10,
+      "description": "Ile kluczowych danych klient podał od razu"
+    },
+    {
+      "name": "conversation_quality",
+      "max_points": 10,
+      "description": "Czy wiadomość jest konkretna, spójna i użyteczna"
+    }
+  ],
+  "positive_signals": {
+    "strong": [
+      {
+        "pattern": "chcę leasing",
+        "points": 18,
+        "dimension": "intent"
+      },
+      {
+        "pattern": "poproszę ofertę",
+        "points": 18,
+        "dimension": "intent"
+      },
+      {
+        "pattern": "jaka rata",
+        "points": 14,
+        "dimension": "intent"
+      },
+      {
+        "pattern": "mam wybrane auto",
+        "points": 15,
+        "dimension": "intent"
+      },
+      {
+        "pattern": "na firmę",
+        "points": 10,
+        "dimension": "financial_fit"
+      },
+      {
+        "pattern": "prowadzę działalność",
+        "points": 12,
+        "dimension": "financial_fit"
+      },
+      {
+        "pattern": "spółka",
+        "points": 12,
+        "dimension": "financial_fit"
+      },
+      {
+        "pattern": "wkład własny",
+        "points": 8,
+        "dimension": "completeness"
+      },
+      {
+        "pattern": "48 miesięcy",
+        "points": 7,
+        "dimension": "completeness"
+      },
+      {
+        "pattern": "budżet",
+        "points": 7,
+        "dimension": "completeness"
+      },
+      {
+        "pattern": "mogę działać w tym tygodniu",
+        "points": 16,
+        "dimension": "timing"
+      },
+      {
+        "pattern": "proszę o kontakt",
+        "points": 14,
+        "dimension": "timing"
+      },
+      {
+        "pattern": "wyślij warunki",
+        "points": 12,
+        "dimension": "intent"
+      }
+    ],
+    "medium": [
+      {
+        "pattern": "interesuje mnie leasing",
+        "points": 10,
+        "dimension": "intent"
+      },
+      {
+        "pattern": "jak to wygląda",
+        "points": 6,
+        "dimension": "intent"
+      },
+      {
+        "pattern": "czy dla jdg",
+        "points": 8,
+        "dimension": "financial_fit"
+      },
+      {
+        "pattern": "jakie dokumenty",
+        "points": 8,
+        "dimension": "intent"
+      },
+      {
+        "pattern": "więcej informacji",
+        "points": 5,
+        "dimension": "conversation_quality"
+      },
+      {
+        "pattern": "leasing auta",
+        "points": 8,
+        "dimension": "intent"
+      }
+    ],
+    "weak": [
+      {
+        "pattern": "aktualne",
+        "points": 2,
+        "dimension": "conversation_quality"
+      },
+      {
+        "pattern": "pw",
+        "points": 1,
+        "dimension": "conversation_quality"
+      },
+      {
+        "pattern": "priv",
+        "points": 1,
+        "dimension": "conversation_quality"
+      },
+      {
+        "pattern": "info",
+        "points": 1,
+        "dimension": "conversation_quality"
+      },
+      {
+        "pattern": "poproszę",
+        "points": 2,
+        "dimension": "conversation_quality"
+      }
+    ]
+  },
+  "negative_signals": [
+    {
+      "pattern": "na razie tylko pytam",
+      "points": -10,
+      "dimension": "intent"
+    },
+    {
+      "pattern": "za kilka miesięcy",
+      "points": -12,
+      "dimension": "timing"
+    },
+    {
+      "pattern": "jeszcze się zastanawiam",
+      "points": -8,
+      "dimension": "intent"
+    },
+    {
+      "pattern": "porównuję opcje",
+      "points": -5,
+      "dimension": "intent"
+    },
+    {
+      "pattern": "bez bik",
+      "points": -12,
+      "dimension": "financial_fit"
+    },
+    {
+      "pattern": "bez krd",
+      "points": -12,
+      "dimension": "financial_fit"
+    },
+    {
+      "pattern": "bez dochodu",
+      "points": -15,
+      "dimension": "financial_fit"
+    },
+    {
+      "pattern": "bez wkładu i od ręki",
+      "points": -10,
+      "dimension": "financial_fit"
+    }
+  ],
+  "key_entities_to_extract": [
+    "przedmiot leasingu",
+    "marka",
+    "model",
+    "wartość przedmiotu",
+    "budżet miesięczny",
+    "wkład własny",
+    "okres leasingu",
+    "forma działalności",
+    "czas zakupu",
+    "dane kontaktowe"
+  ],
+  "minimum_data_for_offer_ready_lead": [
+    "przedmiot leasingu",
+    "wartość lub budżet",
+    "forma działalności",
+    "okres leasingu lub preferowana rata"
+  ],
+  "response_strategy_by_band": {
+    "Cold": {
+      "tone": "spokojny, pomocny, nienachalny",
+      "goal": "utrzymać rozmowę i zdobyć podstawowy kontekst",
+      "questions_limit": 2
+    },
+    "Warm": {
+      "tone": "konkretny, doradczy",
+      "goal": "kwalifikacja leadu",
+      "questions_limit": 4
+    },
+    "Hot": {
+      "tone": "pewny, sprawny, sprzedażowy ale naturalny",
+      "goal": "przejście do kalkulacji lub rozmowy telefonicznej",
+      "questions_limit": 4
+    },
+    "Priority": {
+      "tone": "bardzo konkretny, szybki, premium",
+      "goal": "domknięcie kontaktu i przekazanie do handlowca",
+      "questions_limit": 3
+    }
+  },
+  "human_handoff_rules": [
+    {
+      "condition": "score >= 75",
+      "action": "przekaż do handlowca natychmiast"
+    },
+    {
+      "condition": "klient prosi o telefon lub ofertę",
+      "action": "przekaż do handlowca"
+    },
+    {
+      "condition": "wiadomość zawiera komplet danych do kalkulacji",
+      "action": "przekaż do handlowca"
+    }
+  ],
+  "output_format": {
+    "fields": [
+      "lead_score",
+      "lead_label",
+      "priority",
+      "recommended_action",
+      "intent_summary",
+      "missing_data",
+      "next_best_message"
+    ]
+  }
+}
